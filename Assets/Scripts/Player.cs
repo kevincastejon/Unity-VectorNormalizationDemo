@@ -7,7 +7,7 @@ public enum NormalizationType
 {
     NONE,
     NORMALIZE,
-    NORMALIZED_IF_ABOVE_ONE
+    CLAMP_AT_ONE
 }
 
 public class Player : MonoBehaviour
@@ -37,9 +37,13 @@ public class Player : MonoBehaviour
     private void Update()
     {
         _direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        if (_normalizationType == NormalizationType.NORMALIZE || (_normalizationType == NormalizationType.NORMALIZED_IF_ABOVE_ONE && _direction.magnitude > 1f))
+        if (_normalizationType == NormalizationType.NORMALIZE)
         {
             _direction = _direction.normalized;
+        }
+        else if (_normalizationType == NormalizationType.CLAMP_AT_ONE)
+        {
+            _direction = Vector3.ClampMagnitude(_direction, 1f);
         }
         _xLabel.text = "X : " + _direction.x.ToString("F3");
         _yLabel.text = "Y : " + _direction.y.ToString("F3");

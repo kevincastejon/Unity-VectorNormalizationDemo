@@ -23,7 +23,7 @@ public class StickView : MonoBehaviour
 
     public void SetPoint(Vector2 point)
     {
-        if (_normalizationType == NormalizationType.NORMALIZE || (_normalizationType == NormalizationType.NORMALIZED_IF_ABOVE_ONE && point.magnitude > 1f))
+        if (_normalizationType == NormalizationType.NORMALIZE || (_normalizationType == NormalizationType.CLAMP_AT_ONE && point.magnitude > 1f))
         {
             point = point.normalized;
         }
